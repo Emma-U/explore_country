@@ -10,8 +10,8 @@ and to know some detail about mine/your country info
 
 
 ## A few resources 
--[http](http: ^0.13.5) - use to fetch the API.data
--[spinkit](flutter_spinkit: ^5.1.0) - for return response in which to know if the data is gotten, and to be seen on the  
+- [http](https://pub.dev/packages/http) - use to fetch the API.data
+- [spinkit]((https://pub.dev/packages/flutter_spinkit) - for return response in which to know if the data is gotten, and to be seen on the  
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
