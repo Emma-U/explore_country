@@ -11,7 +11,7 @@ and to know some detail about mine/your country info
 
 ## A few Packages  
 - [http](https://pub.dev/packages/http) - use to fetch the API.data
-- [spinkit](https://pub.dev/packages/flutter_spinkit) - for return response in which to know if the data is gotten, and to be seen on the  
+- [spinkit](https://pub.dev/packages/flutter_spinkit) - for return response in which to know if the data is gotten, and to be seen on the Screen 
 
 ## Challenge 
 -it will be updated!
