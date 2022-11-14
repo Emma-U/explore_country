@@ -1,6 +1,7 @@
-import 'package:explore/page/filter.dart';
-import 'package:explore/page/language.dart';
 import 'package:flutter/material.dart';
+
+import '../pages/filter.dart';
+import '../pages/language.dart';
 
 class BottomView extends StatelessWidget {
   const BottomView({Key? key}) : super(key: key);

@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 const kRed = Colors.red;
 
+const kWhite = Colors.white;
+
 InputDecoration kTextDecoration = InputDecoration(
   filled: true,
   focusColor: Colors.white24,
