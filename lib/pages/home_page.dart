@@ -1,9 +1,12 @@
-import 'package:explore/pages/the_list.dart';
-import 'package:explore/utilities/const.dart';
-import 'package:explore/widget/bottom_view.dart';
-import 'package:explore/widget/header.dart';
-import 'package:explore/widget/search.dart';
+import 'package:explore/model/country.dart';
+import 'package:explore/services/country_service.dart';
+import 'package:explore/utilities/constants.dart';
+import 'package:explore/widgets/country_list.dart';
+import 'package:explore/widgets/header.dart';
+import 'package:explore/widgets/search_field.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/file_detail.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,35 +16,78 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final CountryService countryService = CountryService();
+
+  String _searchText = '';
+  bool isLoading = true;
+
+  List<Country> _countries = [];
+  List<Country> get _filteredCountries => _searchText.isEmpty
+      ? _countries
+      : _countries
+          .where((country) =>
+              country.name.toLowerCase().contains(_searchText.toLowerCase()))
+          .toList();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _getCountries();
+    });
+  }
+
+  Future<void> _getCountries() async {
+    _countries = await CountryService().fetchData();
+
+    // Sort the countries by name
+    _countries.sort((a, b) => a.name.compareTo(b.name));
+
+    // Set loading state to false
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void onSearch(String value) {
+    setState(() {
+      _searchText = value.trim();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhite,
-      body: Column(
-        children: [
-          SafeArea(
-            child: Column(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Header(),
                     IconButton(
-                      onPressed: (() {
-                        setState(
-                            () {}); //To change the background color of the app
-                      }),
+                      onPressed: () {},
                       icon: const Icon(Icons.light_mode_outlined),
                     )
                   ],
                 ),
-                const Search(),
-                const BottomView(),
+                SearchField(onChanged: onSearch),
+                const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: FileDetail(),
+                )
               ],
             ),
-          ),
-          const TheList()
-        ],
+            Expanded(
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : CountryList(countries: _filteredCountries),
+            ),
+          ],
+        ),
       ),
     );
   }

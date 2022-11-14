@@ -37,8 +37,11 @@ class Country {
           ? []
           : json['capital'],
       region: json['region'].toString(),
-      languages: json['languages'] as Map<String, dynamic>,
-      independent: json['independent'] as bool,
+      languages: json['languages'] == null || json['languages'].isEmpty
+          ? null
+          : json['languages'] as Map<String, dynamic>,
+      independent:
+          json['independent'] == null ? false : json['independent'] as bool,
       area: json['area'].toString(),
       dialingCode: json['idd'] as Map<String, dynamic>,
       timeZone: json['timeZone'].toString(),
